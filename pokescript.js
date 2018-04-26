@@ -1,5 +1,5 @@
 
-axios.get('https://github.com/aglegaspi/pokedex/blob/master/jynx.json')
+axios.get('https://aglegaspi.github.io/pokedex/jynx.json')
 .then(function (response) {
-  console.log(response)
+  console.log(response.data)
 });
