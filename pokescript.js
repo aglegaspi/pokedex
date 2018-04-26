@@ -1,38 +1,41 @@
 axios.all([
-    axios.get('https://pokeapi.co/api/v2/pokemon/124/'),
-    axios.get('https://pokeapi.co/api/v2/pokemon/794/'),
-    axios.get('https://pokeapi.co/api/v2/pokemon/795/')
+    axios.get('https://aglegaspi.github.io/pokedex/jynx.json'),
+    axios.get('https://aglegaspi.github.io/pokedex/buzzwole.json'),
+    axios.get('https://aglegaspi.github.io/pokedex/pheromosa.json')
   ])
   .then(axios.spread((jynxResponse, buzzwoleResponse, pheromosaResponse) => {
-    // do something with all responses
+    console.log(jynxResponse);
+    console.log(buzzwoleResponse);
+    console.log(pheromosaResponse);
 
-    // console.log(jynxResponse.data.abilities[0].ability.name) // abilitiy name
-    // console.log(jynxResponse.data.stats[5].stat.name) // hp
-    // console.log(jynxResponse.data.stats[5].base_stat) // hp val
-    // console.log(jynxResponse.data.stats[4].stat.name) // attack
-    // console.log(jynxResponse.data.stats[4].base_stat) // attack val
-    // console.log(jynxResponse.data.stats[3].stat.name) // defense
-    // console.log(jynxResponse.data.stats[3].base_stat) // defense val
-    let jynx = new Pokemon(jynxResponse);
-    console.log(jynx);
-    let buzzwole = new Pokemon(buzzwoleResponse);
-    console.log(buzzwole);
-    let pheromosa = new Pokemon(pheromosaResponse);
-    console.log(pheromosa);
-    let response = jynx + buzzwole + pheromosa;
+    console.log(jynxResponse.data.abilities[0].ability.name) // abilitiy name
+    console.log(jynxResponse.data.stats[5].stat.name) // hp
+    console.log(jynxResponse.data.stats[5].base_stat) // hp val
+    console.log(jynxResponse.data.stats[4].stat.name) // attack
+    console.log(jynxResponse.data.stats[4].base_stat) // attack val
+    console.log(jynxResponse.data.stats[3].stat.name) // defense
+    console.log(jynxResponse.data.stats[3].base_stat) // defense val
+
+    // let jynx = new Pokemon(jynxResponse);
+    // console.log(jynx);
+    // let buzzwole = new Pokemon(buzzwoleResponse);
+    // console.log(buzzwole);
+    // let pheromosa = new Pokemon(pheromosaResponse);
+    // console.log(pheromosa);
+    // let response = jynx + buzzwole + pheromosa;
   }));
 
 
-  class Pokemon {
-    constructor(response) {
-      this.hp = response.data.stats[5].base_stat;
-      this.attack = response.data.stats[4].base_stat;
-      this.defense = response.data.stats[3].base_stat;
-      // this.abilities = [];
-     };
-   };
-console.log(Pokemon);
-
+  // class Pokemon {
+  //   constructor(response) {
+  //     this.hp = response.data.stats[5].base_stat;
+  //     this.attack = response.data.stats[4].base_stat;
+  //     this.defense = response.data.stats[3].base_stat;
+  //     // this.abilities = [];
+  //    };
+  //  };
+  //
+  //
 
 
 
