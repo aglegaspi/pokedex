@@ -7,7 +7,7 @@ let wavesurfer = WaveSurfer.create({
   waveColor: 'white',
   progressColor: 'grey'
 });
-wavesurfer.on('load', function() {
+wavesurfer.on('click', function() {
   wavesurfer.play();
 });
 
