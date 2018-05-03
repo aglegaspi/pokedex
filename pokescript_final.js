@@ -16,9 +16,9 @@ wavesurfer.load('https://aglegaspi.github.io/pokedex/subwayseries.mp3');
 
 let chosenOne = document.querySelector('#choosePokemon');
 chosenOne.addEventListener('change', function(e) {
-  let mainlink = 'https://aglegaspi.github.io/pokedex/';
-  let pokepath = chosenOne.value;
-  let url = mainlink + pokepath + '.json';
+let mainlink = 'https://aglegaspi.github.io/pokedex/';
+let pokepath = chosenOne.value;
+let url = mainlink + pokepath + '.json';
 
   axios.get(url)
     .then(function(response) {
@@ -46,13 +46,3 @@ chosenOne.addEventListener('change', function(e) {
   }
   changeImage();
 });
-
-
-
-
-
-
-
-
-
-// a wonderfule world

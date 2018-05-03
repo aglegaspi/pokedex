@@ -1,3 +1,20 @@
+$(document).ready(function() {
+  $('body').hide().fadeIn(2000);
+});
+
+let wavesurfer = WaveSurfer.create({
+  container: '#waveform',
+  waveColor: 'white',
+  progressColor: 'grey'
+});
+wavesurfer.on('ready', function() {
+  wavesurfer.play();
+});
+
+wavesurfer.setVolume(0.2);
+wavesurfer.load('https://aglegaspi.github.io/pokedex/subwayseries.mp3');
+
+
 class Trainer {
   constructor(name) {
     this.name = name;
@@ -29,69 +46,42 @@ class Pokemon {
     this.abilities = abilities;
   }
 }
+
 let jynx = new Pokemon('jynx');
 let buzzwole = new Pokemon('buzzwole');
 let pheromosa = new Pokemon('pheromosa');
 
-function getPokemonStats(name) {
-  axios.get('https://aglegaspi.github.io/pokedex/' + name + '.json')
-    .then(function(myResponse) {
-      let abilitiesArr = [];
-      let abilitiesApi = myResponse.data.abilities;
-      for (let i = 0; i < abilitiesApi.length; i++) {
-        abilitiesArr.push(abilitiesApi[i].ability.name);
-      }
-      let stats = {
-        'name': myResponse.data.name,
-        'hp': myResponse.data.stats[5].base_stat,
-        'attack': myResponse.data.stats[4].base_stat,
-        'defense': myResponse.data.stats[3].base_stat,
-        'abilities': abilitiesArr
-      }
-      Vernancio.pokemon.push(stats);
-    })
-}
+let chosenOne = document.querySelector('#choosePokemon');
+chosenOne.addEventListener('change', function(e) {
+  let mainlink = 'https://aglegaspi.github.io/pokedex/';
+  let pokepath = chosenOne.value;
+  let url = mainlink + pokepath + '.json';
 
-getPokemonStats('lugia');
-getPokemonStats('blastoise');
-getPokemonStats('jigglypuff');
+axios.get(url)
+  .then(function(response) {
 
-let name = document.querySelector('.name');
-let hp = document.querySelector('.hp');
-let attack = document.querySelector('.attack');
-let defense = document.querySelector('.defense');
-let abilities = document.querySelector('.abilities');
-let stats = document.querySelector('.stats');
-let trainerName = document.querySelector('.trainer-name');
+    let hp = document.querySelector('#dispHp');
+    hp.innerHTML = response.data.stats[5].base_stat;
 
-trainerName.innerHTML = Vernancio.name;
+    let attack = document.querySelector('#dispAttack');
+    attack.innerHTML = response.data.stats[4].base_stat;
 
-let messageElement;
+    let defense = document.querySelector('#dispDefense');
+    defense.innerHTML = response.data.stats[3].base_stat;
 
-function showStats(pokemon) {
-  let myPokemon = Vernancio.get(pokemon);
-  name.innerText = myPokemon.name;
-  hp.innerText = myPokemon.hp;
-  attack.innerText = myPokemon.attack;
-  defense.innerText = myPokemon.defense;
-  abilities.innerText = myPokemon.abilities;
-  stats.classList.remove('stats');
-  let messageAll = document.querySelectorAll('.message');
-  for (let i = 0; i < messageAll.length; i++) {
-    messageAll[i].style.display = 'none';
-  }
-  messageElement = document.querySelector(`.message.${pokemon}-info`);
-  messageElement.style.display = 'block';
-}
+    let abilities = document.querySelector('#dispAbilities');
+    let abilityNames = [];
+    for (x = 0; x < response.data.abilities.length; x++) {
+      abilityNames.push(response.data.abilities[x].ability.name);
+    }
+      abilities.innerHTML = abilityNames.join(', ');;
+  });
 
-myPokemon1.addEventListener('mouseover', function() {
-  showStats('lugia');
-});
 
-myPokemon2.addEventListener('mouseover', function() {
-  showStats('blastoise');
-});
+  function changeImage() {
+    let imgValue = choosePokemon.options[e.target.selectedIndex].getAttribute('rel');
+    document.getElementById("pokeImgs").src = imgValue;
+  };
+  changeImage();
 
-myPokemon3.addEventListener('mouseover', function() {
-  showStats('jigglypuff');
 });
