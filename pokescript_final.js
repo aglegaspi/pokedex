@@ -2,7 +2,7 @@ $(document).ready(function() {
   $('body').hide().fadeIn(2000);
 });
 
-var wavesurfer = WaveSurfer.create({
+let wavesurfer = WaveSurfer.create({
   container: '#waveform',
   waveColor: 'white',
   progressColor: 'grey'
