@@ -2,19 +2,6 @@ $(document).ready(function() {
   $('body').hide().fadeIn(2000);
 });
 
-let wavesurfer = WaveSurfer.create({
-  container: '#waveform',
-  waveColor: 'white',
-  progressColor: 'grey'
-});
-wavesurfer.on('click', function() {
-  wavesurfer.play();
-});
-
-wavesurfer.setVolume(0.2);
-wavesurfer.load('https://aglegaspi.github.io/pokedex/subwayseries.mp3');
-
-
 class Trainer {
   constructor(name, pokemon) {
     this.name = name;
@@ -89,13 +76,13 @@ chosenOne.addEventListener('change', function(e) {
         abilities.innerText = pokemon.abilities;
       }
 
-      function changeImage() {
-        let imgValue = choosePokemon.options[e.target.selectedIndex].getAttribute('rel');
-        document.getElementById("pokeImgs").src = imgValue;
-      };
-        changeImage(); });
+function changeImage() {
+  let imgValue = choosePokemon.options[e.target.selectedIndex].getAttribute('rel');
+  document.getElementById("pokeImgs").src = imgValue;
+  };
+changeImage(); });
 
-    let hp = document.querySelector('#dispHp');
-    let attack = document.querySelector('#dispAttack');
-    let defense = document.querySelector('#dispDefense');
-    let abilities = document.querySelector('#dispAbilities');
+let hp = document.querySelector('#dispHp');
+let attack = document.querySelector('#dispAttack');
+let defense = document.querySelector('#dispDefense');
+let abilities = document.querySelector('#dispAbilities');
