@@ -7,7 +7,7 @@ let wavesurfer = WaveSurfer.create({
   waveColor: 'white',
   progressColor: 'grey'
 });
-wavesurfer.on('ready', function() {
+wavesurfer.on('load', function() {
   wavesurfer.play();
 });
 
@@ -16,9 +16,9 @@ wavesurfer.load('https://aglegaspi.github.io/pokedex/subwayseries.mp3');
 
 
 class Trainer {
-  constructor(name) {
+  constructor(name, pokemon) {
     this.name = name;
-    this.pokemon = [];
+    this.pokemon = pokemon;
   }
 
   all() {
@@ -35,7 +35,6 @@ class Trainer {
     return false;
   }
 }
-let Vernancio = new Trainer('Vernancio');
 
 class Pokemon {
   constructor(name, hp, attack, defense, abilities) {
@@ -50,38 +49,53 @@ class Pokemon {
 let jynx = new Pokemon('jynx');
 let buzzwole = new Pokemon('buzzwole');
 let pheromosa = new Pokemon('pheromosa');
+let Vernancio = new Trainer('Vernancio', jynx, buzzwole, pheromosa);
 
 let chosenOne = document.querySelector('#choosePokemon');
 chosenOne.addEventListener('change', function(e) {
-  let mainlink = 'https://aglegaspi.github.io/pokedex/';
-  let pokepath = chosenOne.value;
-  let url = mainlink + pokepath + '.json';
 
-axios.get(url)
-  .then(function(response) {
+      function getPokemonStats(pokemon) {
+        let mainlink = 'https://aglegaspi.github.io/pokedex/';
+        let url = mainlink + pokemon.name + '.json';
+
+        axios.get(url)
+          .then(function(response) {
+            pokemon.hp = response.data.stats[5].base_stat;
+            pokemon.attack = response.data.stats[4].base_stat;
+            pokemon.defense = response.data.stats[3].base_stat;
+
+            let abilityNames = [];
+            let abilitiesApi = response.data.abilities;
+            for (let x = 0; x < abilitiesApi.length; x++) {
+              abilityNames.push(abilitiesApi[x].ability.name);
+            }
+            pokemon.abilities = abilityNames.join(', ');
+
+            if (pokemon.name == chosenOne.value) {
+              showStats(pokemon);
+            }
+          })
+      };
+
+
+      getPokemonStats(jynx);
+      getPokemonStats(buzzwole);
+      getPokemonStats(pheromosa);
+
+      function showStats(pokemon) {
+        hp.innerHTML = pokemon.hp;
+        attack.innerText = pokemon.attack;
+        defense.innerText = pokemon.defense;
+        abilities.innerText = pokemon.abilities;
+      }
+
+      function changeImage() {
+        let imgValue = choosePokemon.options[e.target.selectedIndex].getAttribute('rel');
+        document.getElementById("pokeImgs").src = imgValue;
+      };
+        changeImage(); });
 
     let hp = document.querySelector('#dispHp');
-    hp.innerHTML = response.data.stats[5].base_stat;
-
     let attack = document.querySelector('#dispAttack');
-    attack.innerHTML = response.data.stats[4].base_stat;
-
     let defense = document.querySelector('#dispDefense');
-    defense.innerHTML = response.data.stats[3].base_stat;
-
     let abilities = document.querySelector('#dispAbilities');
-    let abilityNames = [];
-    for (x = 0; x < response.data.abilities.length; x++) {
-      abilityNames.push(response.data.abilities[x].ability.name);
-    }
-      abilities.innerHTML = abilityNames.join(', ');;
-  });
-
-
-  function changeImage() {
-    let imgValue = choosePokemon.options[e.target.selectedIndex].getAttribute('rel');
-    document.getElementById("pokeImgs").src = imgValue;
-  };
-  changeImage();
-
-});
