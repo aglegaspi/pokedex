@@ -1,8 +1,4 @@
-$(document).ready(function() {
-  $('body').hide().fadeIn(2000);
-});
-
-class Trainer {
+class Trainer3 {
   constructor(name, pokemon) {
     this.name = name;
     this.pokemon = pokemon;
@@ -23,7 +19,7 @@ class Trainer {
   }
 }
 
-class Pokemon {
+class Pokemon3 {
   constructor(name, hp, attack, defense, abilities) {
     this.name = name;
     this.hp = hp;
@@ -33,10 +29,10 @@ class Pokemon {
   }
 }
 
-let jynx = new Pokemon('jynx');
-let buzzwole = new Pokemon('buzzwole');
-let pheromosa = new Pokemon('pheromosa');
-let Vernancio = new Trainer('Vernancio', jynx, buzzwole, pheromosa);
+let jynx = new Pokemon3('jynx');
+let buzzwole = new Pokemon3('buzzwole');
+let pheromosa = new Pokemon3('pheromosa');
+let Vernancio = new Trainer3('Vernancio', jynx, buzzwole, pheromosa);
 
 let chosenOne = document.querySelector('#choosePokemon');
 chosenOne.addEventListener('change', function(e) {
