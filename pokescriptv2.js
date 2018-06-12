@@ -1,32 +1,32 @@
 class Trainer3 {
-  constructor(name, pokemon) {
-    this.name = name;
-    this.pokemon = pokemon;
-  }
-
-  all() {
-    return this.pokemon;
-  }
-
-  get(name) {
-    for (let i = 0; i < this.pokemon.length; i++) {
-      let pokemonName = this.pokemon[i].name;
-      if (pokemonName === name) {
-        return this.pokemon[i];
-      }
+    constructor(name, pokemon) {
+        this.name = name;
+        this.pokemon = pokemon;
     }
-    return false;
-  }
+
+    all() {
+        return this.pokemon;
+    }
+
+    get(name) {
+        for (let i = 0; i < this.pokemon.length; i++) {
+            let pokemonName = this.pokemon[i].name;
+            if (pokemonName === name) {
+                return this.pokemon[i];
+            }
+        }
+        return false;
+    }
 }
 
 class Pokemon3 {
-  constructor(name, hp, attack, defense, abilities) {
-    this.name = name;
-    this.hp = hp;
-    this.attack = attack;
-    this.defense = defense;
-    this.abilities = abilities;
-  }
+    constructor(name, hp, attack, defense, abilities) {
+        this.name = name;
+        this.hp = hp;
+        this.attack = attack;
+        this.defense = defense;
+        this.abilities = abilities;
+    }
 }
 
 let jynx = new Pokemon3('jynx');
@@ -35,48 +35,49 @@ let pheromosa = new Pokemon3('pheromosa');
 let Vernancio = new Trainer3('Vernancio', jynx, buzzwole, pheromosa);
 
 let chosenOne = document.querySelector('#choosePokemon');
-chosenOne.addEventListener('change', function(e) {
+chosenOne.addEventListener('change', function (e) {
 
-      function getPokemonStats(pokemon) {
+    function getPokemonStats(pokemon) {
         let mainlink = 'https://aglegaspi.github.io/pokedex/';
         let url = mainlink + pokemon.name + '.json';
 
         axios.get(url)
-          .then(function(response) {
-            pokemon.hp = response.data.stats[5].base_stat;
-            pokemon.attack = response.data.stats[4].base_stat;
-            pokemon.defense = response.data.stats[3].base_stat;
+            .then(function (response) {
+                pokemon.hp = response.data.stats[5].base_stat;
+                pokemon.attack = response.data.stats[4].base_stat;
+                pokemon.defense = response.data.stats[3].base_stat;
 
-            let abilityNames = [];
-            let abilitiesApi = response.data.abilities;
-            for (let x = 0; x < abilitiesApi.length; x++) {
-              abilityNames.push(abilitiesApi[x].ability.name);
-            }
-            pokemon.abilities = abilityNames.join(', ');
+                let abilityNames = [];
+                let abilitiesApi = response.data.abilities;
+                for (let x = 0; x < abilitiesApi.length; x++) {
+                    abilityNames.push(abilitiesApi[x].ability.name);
+                }
+                pokemon.abilities = abilityNames.join(', ');
 
-            if (pokemon.name == chosenOne.value) {
-              showStats(pokemon);
-            }
-          })
-      };
+                if (pokemon.name == chosenOne.value) {
+                    showStats(pokemon);
+                }
+            })
+    };
 
 
-      getPokemonStats(jynx);
-      getPokemonStats(buzzwole);
-      getPokemonStats(pheromosa);
+    getPokemonStats(jynx);
+    getPokemonStats(buzzwole);
+    getPokemonStats(pheromosa);
 
-      function showStats(pokemon) {
+    function showStats(pokemon) {
         hp.innerHTML = pokemon.hp;
         attack.innerText = pokemon.attack;
         defense.innerText = pokemon.defense;
         abilities.innerText = pokemon.abilities;
-      }
+    }
 
-function changeImage() {
-  let imgValue = choosePokemon.options[e.target.selectedIndex].getAttribute('rel');
-  document.getElementById("pokeImgs").src = imgValue;
-  };
-changeImage(); });
+    function changeImage() {
+        let imgValue = choosePokemon.options[e.target.selectedIndex].getAttribute('rel');
+        document.getElementById("pokeImgs").src = imgValue;
+    };
+    changeImage();
+});
 
 let hp = document.querySelector('#dispHp');
 let attack = document.querySelector('#dispAttack');
