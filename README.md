@@ -6,5 +6,5 @@ This project was inspired by the massive commercialization of art legends such a
 
 I pulled data via an AJAX call from a JSON file. I could've retrieved data directly from the Pokeman API however their servers are not fans of multiple requests so the JSON file was the most reliable alternative. 
 
-![alt text](https://aglegaspi.github.io/pokedex/images/agl_pokedex.gif "Vernancio x Andy Warhol")
+![alt text](https://aglegaspi.github.io/pokedex/images/agl_pokedex.gif "View")
 -
